@@ -82,6 +82,13 @@ pids/
 *.seed
 *.pid.lock
 
+# 2026-09-05 修补:行 78 *.log 模式误匹配 .Log/ 目录下的 .md 文件
+# 实测 git 2.50.1 (Apple Git-155):touch .Log/test.md → git check-ignore 命中行 78
+# 0901-0904 共 4 个状态记录均需 git add -f 强制入库(0902 db050bf commit message 已记录)
+# 修补方案:在 *.log 之后加 !.Log/ 显式重新包含整个 .Log/ 目录
+# 副作用:.Log/ 下任何 .log 也不会被忽略——但 .Log/ 当前仅 12 巡检 + 4 状态记录 .md,无 .log
+!.Log/
+
 # ---------- 临时 / 缓存 ----------
 tmp/
 .tmp/
